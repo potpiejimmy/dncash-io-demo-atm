@@ -19,4 +19,14 @@ export class CashApiService extends AuthHttp {
             refname: navigator.userAgent.substr(0,36)
         });
     }
+
+    verifyCode(radiocode: string): Promise<any> {
+        return this.get(environment.apiUrl+"tokens/"+radiocode+"?device_uuid=" + this.localStorage.get("device-uuid"));
+    }
+    
+    confirmToken(uid: string, state: string): Promise<any> {
+        return this.put(environment.apiUrl+"tokens/"+uid+"?device_uuid=" + this.localStorage.get("device-uuid"), {
+            state: state
+        });
+    }
 }

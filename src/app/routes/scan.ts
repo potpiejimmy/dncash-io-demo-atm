@@ -14,6 +14,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
     @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent;
 
     result: string;
+    token: any;
 
     constructor(
         private zone: NgZone,
@@ -84,5 +85,19 @@ import { MatSnackBar } from "@angular/material/snack-bar";
     qrCodeScanned(result: string) {
         console.log(result);
         this.result = result;
+
+        this.cashApiService.verifyCode(result).then(token => {
+            this.token = token;
+            this.result = token.amount/100 + " " + token.symbol + " (" + token.state + ")";
+        }).catch(err => {
+            console.log(err);
+            this.result = "Invalid code.";
+        });
+    }
+
+    confirm(state: string) {
+        this.cashApiService.confirmToken(this.token.uuid, state).then(() => {
+            window.location.reload();
+        });
     }
 }
