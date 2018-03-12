@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CashApiService } from "../services/cashapi.service";
 import { AppService } from "../services/app.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'noscan',
@@ -14,7 +15,8 @@ export class NoScanComponent implements OnInit {
 
     constructor(
         private cashApiService: CashApiService,
-        private appService: AppService
+        private appService: AppService,
+        private router: Router
      ) {
      }
 
@@ -32,6 +34,7 @@ export class NoScanComponent implements OnInit {
     }
 
     handleTimeout() {
+        if (!this.processing) return;
         this.timeout--;
         if (this.timeout <= 0) this.processing = false;
         else setTimeout(()=>this.handleTimeout(), 1000);
@@ -43,9 +46,11 @@ export class NoScanComponent implements OnInit {
     }
 
     request() {
-        this.startTimeout(30);
+        this.startTimeout(60);
         this.cashApiService.requestTrigger(this.triggercode).then(token => {
             this.processing = false;
+            this.appService.currentToken = token;
+            this.router.navigate(['/cash']);
         }).catch(err => {
         })
     }
