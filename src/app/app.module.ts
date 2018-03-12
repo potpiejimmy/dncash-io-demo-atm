@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 // Specials
 import { NgQrScannerModule } from 'angular2-qrscanner';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { LocalStorageModule } from 'angular-2-local-storage';
 
 // App
@@ -18,12 +19,17 @@ import { ScanComponent } from './routes/scan';
 import { AppRoutes } from './app.routes';
 import { CashApiService } from './services/cashapi.service';
 import { AuthHttp } from './services/authhttp.service';
+import { NoScanComponent } from './routes/noscan';
+import { CashComponent } from './routes/cash';
+import { AppService } from './services/app.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     // App:
-    ScanComponent
+    ScanComponent,
+    NoScanComponent,
+    CashComponent
   ],
   imports: [
     BrowserModule,
@@ -35,13 +41,15 @@ import { AuthHttp } from './services/authhttp.service';
     MatButtonModule,
     // Specials:
     NgQrScannerModule,
+    NgxQRCodeModule,
     LocalStorageModule.withConfig({ prefix: 'dncashio-demo', storageType: 'localStorage' }),
     // App:
     AppRoutes
   ],
   providers: [
     AuthHttp,
-    CashApiService
+    CashApiService,
+    AppService
   ],
   bootstrap: [AppComponent]
 })

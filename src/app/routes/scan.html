@@ -1,18 +1,18 @@
-<div *ngIf="!result" style="width:320px; height:240px;">
+<div *ngIf="!result" style="width:320px; height:240px;text-align:center;">
+
+    <h4>Scan QR code here:</h4>
+    
     <qr-scanner *ngIf="!result"
             [debug]="false"
             [updateTime]="500"
             [stopAfterScan]="true">
     </qr-scanner>
+
+    <p>
+      <a routerLink="/noscan">Emulate legacy ATM without radio or scanning capabilities</a>
+    </p>
 </div>
 
 <div *ngIf="result" style="text-align: center;">
   {{result}}
-</div>
-
-<p></p>
-
-<div *ngIf="token">
-  <button mat-raised-button color="primary" (click)="confirm('COMPLETED')">COMPLETED</button>
-  <button mat-raised-button color="primary" (click)="confirm('FAILED')">FAILED</button>
 </div>

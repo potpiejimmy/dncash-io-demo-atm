@@ -1,0 +1,15 @@
+<div *ngIf="!processing">
+    <button mat-raised-button color="primary" (click)="start()" style="padding: 3em;">
+        <i class="material-icons">phonelink_ring</i><br/>Mobile Cash
+    </button>
+</div>
+
+<div *ngIf="processing" style="text-align:center;">
+    <h4>Scan this QR code:</h4>
+    <ngx-qrcode 
+            [qrc-value] = "triggercode"
+            qrc-class = "qrcode"
+            qrc-errorCorrectionLevel = "L">
+    </ngx-qrcode>
+    <h4>{{timeout}}</h4>
+</div>

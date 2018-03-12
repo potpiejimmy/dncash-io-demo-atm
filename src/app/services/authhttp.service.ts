@@ -7,8 +7,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 @Injectable()
 export class AuthHttp {
     constructor (
-        private http: HttpClient,
-        private localStorageService: LocalStorageService) {
+        protected http: HttpClient,
+        protected localStorageService: LocalStorageService) {
     }
 
     requestOptions() {

@@ -4,23 +4,25 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { LocalStorageService } from "angular-2-local-storage";
 import { CashApiService } from "../services/cashapi.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { AppService } from "../services/app.service";
 
 @Component({
     selector: 'scan',
     templateUrl: 'scan.html'
-  })
-  export class ScanComponent implements OnInit, AfterViewInit {
+})
+export class ScanComponent implements OnInit, AfterViewInit {
 
     @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent;
 
     result: string;
-    token: any;
 
     constructor(
         private zone: NgZone,
         private route: ActivatedRoute,
+        private router: Router,
         private localStorageService: LocalStorageService,
         private cashApiService: CashApiService,
+        private appService: AppService,
         public snackBar: MatSnackBar
     ) {}
 
@@ -87,17 +89,11 @@ import { MatSnackBar } from "@angular/material/snack-bar";
         this.result = result;
 
         this.cashApiService.verifyCode(result).then(token => {
-            this.token = token;
-            this.result = token.amount/100 + " " + token.symbol + " (" + token.state + ")";
+            this.appService.currentToken = token;
+            this.router.navigate(['/cash']);
         }).catch(err => {
             console.log(err);
             this.result = "Invalid code.";
-        });
-    }
-
-    confirm(state: string) {
-        this.cashApiService.confirmToken(this.token.uuid, state).then(() => {
-            window.location.reload();
         });
     }
 }

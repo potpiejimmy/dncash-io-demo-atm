@@ -29,4 +29,12 @@ export class CashApiService extends AuthHttp {
             state: state
         });
     }
+
+    createTrigger(): Promise<any> {
+        return this.post(environment.apiUrl+"trigger?device_uuid=" + this.localStorage.get("device-uuid"), {});
+    }
+
+    requestTrigger(triggercode: string): Promise<any> {
+        return this.get(environment.apiUrl+"trigger/"+triggercode);
+    }
 }
