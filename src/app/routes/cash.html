@@ -4,6 +4,19 @@
 
 <p></p>
 
+<div style="margin-bottom: 1em;" class="horizontalcenter">
+  <div class="table">
+      <div class="table-row" *ngIf="token.info && token.info.denomData">
+          <div *ngFor="let denom of token.info.denomData" style="align-items: center;">
+              <div class="table-cell" *ngIf="denom.c" style="vertical-align: middle;">{{denom.c}}</div>
+              <div class="table-cell"><img *ngIf="denom.c"[src]="'assets/euro'+denom.d/100+'.png'" height="128px"/></div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<p></p>
+
 <div>
   <button mat-raised-button color="primary" (click)="confirm('COMPLETED')">COMPLETED</button>
   <button mat-raised-button color="primary" (click)="confirm('FAILED')">FAILED</button>

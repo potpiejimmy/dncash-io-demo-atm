@@ -19,3 +19,24 @@ body {
     justify-content: center; /* align horizontal */
     align-items: center; /* align vertical */
 }
+
+.qrcode, .qrcode img {
+    width: 320px;
+}
+
+.horizontalcenter {
+    display: flex;
+    justify-content: center; /* align horizontal */
+}
+
+.table {
+    display: table;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.table-cell {
+    display: table-cell;
+}

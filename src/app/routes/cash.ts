@@ -11,6 +11,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class CashComponent implements OnInit {
 
     displayString: string;
+    token: any;
 
     constructor(
         private router: Router,
@@ -24,8 +25,8 @@ export class CashComponent implements OnInit {
             this.router.navigate(['/']);
             return;
         }
-        let token = this.appService.currentToken;
-        this.displayString = token.amount/100 + " " + token.symbol + " (" + token.state + ")";
+        this.token = this.appService.currentToken;
+        this.displayString = this.token.amount/100 + " " + this.token.symbol + " (" + this.token.state + ")";
     }
 
     confirm(state: string) {
