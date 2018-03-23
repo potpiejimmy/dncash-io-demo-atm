@@ -59,25 +59,7 @@ export class ScanComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.qrScannerComponent.getMediaDevices().then(devices => {
-            console.log(devices);
-            const videoDevices: MediaDeviceInfo[] = [];
-            for (const device of devices) {
-                if (device.kind.toString() === 'videoinput') {
-                    videoDevices.push(device);
-                }
-            }
-            if (videoDevices.length > 0){
-                let choosenDev = videoDevices[0];
-                for (const dev of videoDevices){
-                    if (dev.label.includes('front')){
-                        choosenDev = dev;
-                        break;
-                    }
-                }
-                this.qrScannerComponent.chooseCamera.next(choosenDev);
-            }
-        });
+        this.qrScannerComponent.startScanning(null);
 
         this.qrScannerComponent.capturedQr.subscribe(result => {
             this.zone.run(() => this.qrCodeScanned(result));
