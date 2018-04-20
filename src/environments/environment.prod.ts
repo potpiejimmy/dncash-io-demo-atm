@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://doogetha.com/dnapi/cash/v1/'
+  apiUrl: 'https://dncashio.apili.xyz/dnapi/cash/v1/'
 };
