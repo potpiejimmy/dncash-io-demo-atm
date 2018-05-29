@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { CashApiService } from "../services/cashapi.service";
 import { AppService } from "../services/app.service";
 import { Router } from "@angular/router";
+import { environment } from "../../environments/environment";
+import * as mqtt from 'mqtt';
 
 @Component({
     selector: 'noscan',
@@ -15,6 +17,8 @@ export class NoScanComponent implements OnInit {
     triggercode: string;
     timeout: number;
 
+    nfctrigger: string;
+
     constructor(
         private cashApiService: CashApiService,
         private appService: AppService,
@@ -23,6 +27,22 @@ export class NoScanComponent implements OnInit {
      }
 
     ngOnInit(): void {
+        this.cashApiService.createTrigger(86400).then(res => {
+            let c = mqtt.connect(environment.mqttUrl);
+            c.on('connect', () => {
+                console.log("MQTT connected");
+                this.nfctrigger = res.triggercode;
+                c.subscribe('dncash-io/trigger/' + res.triggercode);
+            });
+            c.on('message', (topic, message) => {
+                console.log(message.toString());
+                let msg = JSON.parse(message.toString());
+                this.tokenReceived(msg.token);
+            });
+            c.on('error', err => {
+                console.log("MQTT not ready: " + err);
+            });
+        })
     }
 
     start() {
@@ -50,10 +70,14 @@ export class NoScanComponent implements OnInit {
     request() {
         this.startTimeout(this.TRIGGER_TIMEOUT);
         this.cashApiService.requestTrigger(this.triggercode).then(token => {
-            this.processing = false;
-            this.appService.currentToken = token;
-            this.router.navigate(['/cash']);
+            this.tokenReceived(token);
         }).catch(err => {
         })
+    }
+
+    tokenReceived(token: any) {
+        this.processing = false;
+        this.appService.currentToken = token;
+        this.router.navigate(['/cash']);
     }
 }

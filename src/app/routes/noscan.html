@@ -1,7 +1,20 @@
 <div *ngIf="!processing">
-    <button mat-raised-button color="primary" (click)="start()" style="padding: 3em;">
-        <i class="material-icons">phonelink_ring</i><br/>Mobile Cash
-    </button>
+    <div class="horizontalcenter">
+        <button mat-raised-button color="primary" (click)="start()" style="padding: 3em;">
+            <i class="material-icons">phonelink_ring</i><br/>Mobile Cash
+        </button>
+    </div>
+    <div class="horizontalcenter" *ngIf="nfctrigger">
+        <p>NFC TAG:</p>
+    </div>
+    <div class="horizontalcenter" *ngIf="nfctrigger">
+        <ngx-barcode
+            bc-width="1"
+            bc-height="50"
+            [bc-value]="nfctrigger"
+            [bc-display-value]="true">
+        </ngx-barcode>
+    </div>
 </div>
 
 <div *ngIf="processing" style="text-align:center;">

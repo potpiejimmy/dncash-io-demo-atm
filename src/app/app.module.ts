@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 // Specials
 import { NgQrScannerModule } from 'angular2-qrscanner';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { NgxBarcodeModule } from 'ngx-barcode';
 import { LocalStorageModule } from 'angular-2-local-storage';
 
 // App
@@ -42,6 +43,7 @@ import { AppService } from './services/app.service';
     // Specials:
     NgQrScannerModule,
     NgxQRCodeModule,
+    NgxBarcodeModule,
     LocalStorageModule.withConfig({ prefix: 'dncashio-demo', storageType: 'localStorage' }),
     // App:
     AppRoutes
