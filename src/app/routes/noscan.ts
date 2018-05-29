@@ -9,6 +9,8 @@ import { Router } from "@angular/router";
 })
 export class NoScanComponent implements OnInit {
 
+    TRIGGER_TIMEOUT = 120;
+
     processing: boolean;
     triggercode: string;
     timeout: number;
@@ -27,7 +29,7 @@ export class NoScanComponent implements OnInit {
         this.processing = true;
         this.appService.currentMode = '/noscan';
 
-        this.cashApiService.createTrigger().then(res => {
+        this.cashApiService.createTrigger(this.TRIGGER_TIMEOUT).then(res => {
             this.triggercode = res.triggercode;
             this.request();
         })
@@ -46,7 +48,7 @@ export class NoScanComponent implements OnInit {
     }
 
     request() {
-        this.startTimeout(60);
+        this.startTimeout(this.TRIGGER_TIMEOUT);
         this.cashApiService.requestTrigger(this.triggercode).then(token => {
             this.processing = false;
             this.appService.currentToken = token;
