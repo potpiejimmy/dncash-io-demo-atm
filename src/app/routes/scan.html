@@ -9,6 +9,11 @@
     </qr-scanner>
 
     <p>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Payment (EUR)" [(ngModel)]="appService.paymentAmount">
+      </mat-form-field>
+    </p>
+    <p>
       <a routerLink="/noscan">Emulate legacy ATM without radio or scanning capabilities</a>
     </p>
 </div>

@@ -1,6 +1,9 @@
 <div style="text-align: center;">
   {{displayString}}
 </div>
+<div *ngIf="appService.paymentAmount" style="text-align: center;">
+  Payment: {{appService.paymentAmount}} EUR
+</div>
 
 <p></p>
 

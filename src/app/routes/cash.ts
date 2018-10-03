@@ -16,7 +16,7 @@ export class CashComponent implements OnInit {
     constructor(
         private router: Router,
         private cashApiService: CashApiService,
-        private appService: AppService,
+        public appService: AppService,
         public snackBar: MatSnackBar
     ) {}
     
@@ -30,7 +30,7 @@ export class CashComponent implements OnInit {
     }
 
     confirm(state: string) {
-        this.cashApiService.confirmToken(this.appService.currentToken.uuid, state).then(() => {
+        this.cashApiService.confirmToken(this.appService.currentToken.uuid, state, this.appService.paymentAmountAsNumber).then(() => {
             this.router.navigate([this.appService.currentMode]);
         });
     }

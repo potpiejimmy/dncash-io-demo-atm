@@ -32,7 +32,7 @@ export class ScanComponent implements OnInit, AfterViewInit {
             if (params.key && params.secret) {
                 this.setup(params.key, params.secret);
             }
-        })
+        });
     }
 
     setup(apikey, apisecret) {

@@ -2,11 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 // Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 // Specials
 import { NgQrScannerModule } from 'angular2-qrscanner';
@@ -36,10 +38,12 @@ import { AppService } from './services/app.service';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
     // Angular Material:
     MatToolbarModule,
     MatSnackBarModule,
     MatButtonModule,
+    MatInputModule,
     // Specials:
     NgQrScannerModule,
     NgxQRCodeModule,

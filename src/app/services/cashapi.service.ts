@@ -24,9 +24,10 @@ export class CashApiService extends AuthHttp {
         return this.get(environment.apiUrl+"tokens/"+radiocode+"?device_uuid=" + this.localStorage.get("device-uuid"));
     }
     
-    confirmToken(uid: string, state: string): Promise<any> {
+    confirmToken(uid: string, state: string, amount: number): Promise<any> {
         return this.put(environment.apiUrl+"tokens/"+uid+"?device_uuid=" + this.localStorage.get("device-uuid"), {
-            state: state
+            state: state,
+            amount: amount
         });
     }
 
