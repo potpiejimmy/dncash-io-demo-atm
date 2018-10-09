@@ -40,3 +40,7 @@ body {
 .table-cell {
     display: table-cell;
 }
+
+.mat-toolbar.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
+    background: #c00;
+}

@@ -7,7 +7,7 @@
 
 <p></p>
 
-<div style="margin-bottom: 1em;" class="horizontalcenter">
+<div *ngIf="!appService.paymentAmount" style="margin-bottom: 1em;" class="horizontalcenter">
   <div class="table">
       <div class="table-row" *ngIf="token.info && token.info.denomData">
           <div *ngFor="let denom of token.info.denomData" style="align-items: center;">

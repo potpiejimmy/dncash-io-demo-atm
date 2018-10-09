@@ -32,6 +32,8 @@ export class CashComponent implements OnInit {
     confirm(state: string) {
         this.cashApiService.confirmToken(this.appService.currentToken.uuid, state, this.appService.paymentAmountAsNumber).then(() => {
             this.router.navigate([this.appService.currentMode]);
+        }).catch(err => {
+            this.snackBar.open(err, null, {duration: 10000, verticalPosition: 'top'});
         });
     }
 }
