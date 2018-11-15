@@ -28,7 +28,7 @@ export class NoScanComponent implements OnInit {
 
     ngOnInit(): void {
         this.cashApiService.createTrigger(86400).then(res => {
-            let c = mqtt.connect(environment.mqttUrl);
+            let c = mqtt.connect(environment.mqttUrl, {username:"dncashio", password:"dncashio"});
             c.on('connect', () => {
                 console.log("MQTT connected");
                 this.nfctrigger = res.triggercode;
