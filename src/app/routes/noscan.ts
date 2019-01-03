@@ -32,12 +32,15 @@ export class NoScanComponent implements OnInit {
             c.on('connect', () => {
                 console.log("MQTT connected");
                 this.nfctrigger = res.triggercode;
-                c.subscribe('dncash-io/trigger/' + res.triggercode);
+                c.subscribe('dncash-io/trigger/v1/' + res.triggercode);
             });
             c.on('message', (topic, message) => {
                 console.log(message.toString());
                 let msg = JSON.parse(message.toString());
-                this.tokenReceived(msg.token);
+                let data = msg.data;  // string
+                let signature = msg.signature;  // Base64, signature of data
+                // TODO: verify signature here
+                this.tokenReceived(JSON.parse(data).token);
             });
             c.on('error', err => {
                 console.log("MQTT not ready: " + err);
