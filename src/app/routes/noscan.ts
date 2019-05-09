@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CashApiService } from "../services/cashapi.service";
 import { AppService } from "../services/app.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { environment } from "../../environments/environment";
 import * as mqtt from 'mqtt';
 
@@ -22,11 +22,24 @@ export class NoScanComponent implements OnInit {
     constructor(
         private cashApiService: CashApiService,
         private appService: AppService,
+        private route: ActivatedRoute,
         private router: Router
      ) {
      }
 
     ngOnInit(): void {
+        // auto-setup if params passed:
+        this.route.queryParams.subscribe(params => {
+            if (params.key && params.secret) {
+                this.appService.setup(params.key, params.secret).then(()=>this.createNFCTrigger());
+            } else {
+                this.createNFCTrigger();
+            }
+        });
+
+    }
+
+    createNFCTrigger() {
         this.cashApiService.createTrigger(86400).then(res => {
             let c = mqtt.connect(environment.mqttUrl, {username:"dncashio", password:"dncashio"});
             c.on('connect', () => {

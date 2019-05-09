@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, NgZone } from "@angular/core";
 import { QrScannerComponent } from "angular2-qrscanner";
 import { Router, ActivatedRoute } from "@angular/router";
-import { LocalStorageService } from "angular-2-local-storage";
 import { CashApiService } from "../services/cashapi.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AppService } from "../services/app.service";
@@ -20,7 +19,6 @@ export class ScanComponent implements OnInit, AfterViewInit {
         private zone: NgZone,
         private route: ActivatedRoute,
         private router: Router,
-        private localStorageService: LocalStorageService,
         private cashApiService: CashApiService,
         private appService: AppService,
         public snackBar: MatSnackBar
@@ -30,31 +28,8 @@ export class ScanComponent implements OnInit, AfterViewInit {
         // auto-setup if params passed:
         this.route.queryParams.subscribe(params => {
             if (params.key && params.secret) {
-                this.setup(params.key, params.secret);
+                this.appService.setup(params.key, params.secret);
             }
-        });
-    }
-
-    setup(apikey, apisecret) {
-        let oldApiKey = this.localStorageService.get("DN-API-KEY");
-        let oldApiSecret = this.localStorageService.get("DN-API-SECRET");
-
-        if (apikey != oldApiKey || apisecret != oldApiSecret) {
-            // new api credentials, (re-)register device:
-            this.localStorageService.set("DN-API-KEY", apikey);
-            this.localStorageService.set("DN-API-SECRET", apisecret);
-            this.registerDevice();
-        }
-    }
-
-    registerDevice() {
-        this.cashApiService.registerDevice().then(res => {
-            console.log("Registration Result: " + JSON.stringify(res));
-            this.snackBar.open("Registered ATM: " + res.uuid, null, {duration: 3000, verticalPosition: 'top'});
-            this.localStorageService.set('device-uuid', res.uuid);
-        }).catch(err => {
-            console.log("Registration failed: " + err);
-            this.snackBar.open(err, null, {duration: 5000, verticalPosition: 'top'});
         });
     }
 
