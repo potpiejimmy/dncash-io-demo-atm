@@ -6,16 +6,10 @@ import { environment } from "../../environments/environment";
 import * as mqtt from 'mqtt';
 
 @Component({
-    selector: 'noscan',
-    templateUrl: 'noscan.html'
+    selector: 'nfc',
+    templateUrl: 'nfc.html'
 })
-export class NoScanComponent implements OnInit {
-
-    TRIGGER_TIMEOUT = 120;
-
-    processing: boolean;
-    triggercode: string;
-    timeout: number;
+export class NFCComponent implements OnInit {
 
     nfctrigger: string;
 
@@ -49,7 +43,7 @@ export class NoScanComponent implements OnInit {
             });
             c.on('message', (topic, message) => {
                 console.log(message.toString());
-                this.appService.currentMode = '/noscan';
+                this.appService.currentMode = '/nfc';
                 let msg = JSON.parse(message.toString());
                 let data = msg.data;  // string
                 let signature = msg.signature;  // Base64, signature of data
@@ -62,38 +56,7 @@ export class NoScanComponent implements OnInit {
         })
     }
 
-    start() {
-        this.processing = true;
-        this.appService.currentMode = '/noscan';
-
-        this.cashApiService.createTrigger(this.TRIGGER_TIMEOUT).then(res => {
-            this.triggercode = res.triggercode;
-            this.request();
-        })
-    }
-
-    handleTimeout() {
-        if (!this.processing) return;
-        this.timeout--;
-        if (this.timeout <= 0) this.processing = false;
-        else setTimeout(()=>this.handleTimeout(), 1000);
-    }
-
-    startTimeout(timeout) {
-        this.timeout = timeout;
-        this.handleTimeout();
-    }
-
-    request() {
-        this.startTimeout(this.TRIGGER_TIMEOUT);
-        this.cashApiService.requestTrigger(this.triggercode).then(token => {
-            this.tokenReceived(token);
-        }).catch(err => {
-        })
-    }
-
     tokenReceived(token: any) {
-        this.processing = false;
         this.appService.currentToken = token;
         this.router.navigate(['/cash']);
     }

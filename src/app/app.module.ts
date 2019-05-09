@@ -22,7 +22,8 @@ import { ScanComponent } from './routes/scan';
 import { AppRoutes } from './app.routes';
 import { CashApiService } from './services/cashapi.service';
 import { AuthHttp } from './services/authhttp.service';
-import { NoScanComponent } from './routes/noscan';
+import { LegacyComponent } from './routes/legacy';
+import { NFCComponent } from './routes/nfc';
 import { CashComponent } from './routes/cash';
 import { AppService } from './services/app.service';
 
@@ -31,7 +32,8 @@ import { AppService } from './services/app.service';
     AppComponent,
     // App:
     ScanComponent,
-    NoScanComponent,
+    LegacyComponent,
+    NFCComponent,
     CashComponent
   ],
   imports: [

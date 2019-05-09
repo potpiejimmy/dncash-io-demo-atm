@@ -1,14 +1,5 @@
-<div *ngIf="!processing">
+<div>
     <div class="horizontalcenter">
-        <h3>Legacy ATM with screen only:</h3>
-    </div>
-    <div class="horizontalcenter">
-        <button mat-raised-button color="primary" (click)="start()" style="padding: 3em;">
-            <i class="material-icons">phonelink_ring</i><br/>Mobile Cash
-        </button>
-    </div>
-    <hr style="margin: 2em;" *ngIf="nfctrigger"/>
-    <div class="horizontalcenter" *ngIf="nfctrigger">
         <h3>NFC Tag</h3>
     </div>
     <!--div class="horizontalcenter" *ngIf="nfctrigger">
@@ -32,14 +23,4 @@
     <div class="horizontalcenter" *ngIf="nfctrigger">
         {{'https://instant.dncash.io?triggercode='+nfctrigger}}
     </div>
-</div>
-
-<div *ngIf="processing" style="text-align:center;">
-    <h4>Scan this QR code:</h4>
-    <ngx-qrcode 
-            [qrc-value] = "triggercode"
-            qrc-class = "qrcode"
-            qrc-errorCorrectionLevel = "M">
-    </ngx-qrcode>
-    <h4>{{timeout}}</h4>
 </div>
