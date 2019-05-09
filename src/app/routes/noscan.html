@@ -15,6 +15,13 @@
             [bc-display-value]="true">
         </ngx-barcode>
     </div>
+    <div class="horizontalcenter" *ngIf="nfctrigger">
+        <ngx-qrcode 
+                [qrc-value] = "'https://instant.dncash.io?triggercode='+nfctrigger"
+                qrc-class = "qrcode"
+                qrc-errorCorrectionLevel = "M">
+        </ngx-qrcode>
+    </div>
 </div>
 
 <div *ngIf="processing" style="text-align:center;">

@@ -36,6 +36,7 @@ export class NoScanComponent implements OnInit {
             });
             c.on('message', (topic, message) => {
                 console.log(message.toString());
+                this.appService.currentMode = '/noscan';
                 let msg = JSON.parse(message.toString());
                 let data = msg.data;  // string
                 let signature = msg.signature;  // Base64, signature of data
