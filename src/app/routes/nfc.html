@@ -15,12 +15,12 @@
     </div>
     <div class="horizontalcenter" *ngIf="nfctrigger">
         <ngx-qrcode 
-                [qrc-value] = "'https://demo.dncash.io/token?triggercode='+nfctrigger"
+                [qrc-value] = "'https://instant.dncash.io?triggercode='+nfctrigger"
                 qrc-class = "qrcode"
                 qrc-errorCorrectionLevel = "M">
         </ngx-qrcode>
     </div>
     <div class="horizontalcenter" *ngIf="nfctrigger">
-        {{'https://demo.dncash.io/token?triggercode='+nfctrigger}}
+        {{'https://instant.dncash.io?triggercode='+nfctrigger}}
     </div>
 </div>
